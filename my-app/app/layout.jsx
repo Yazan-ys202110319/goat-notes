@@ -1,4 +1,5 @@
 import "@/app/styles/globals.css";
+import { ThemeProvider } from "@/providers/ThemProvider";
 
 export const metadata = {
   title: "GOAT Notes",
@@ -6,9 +7,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-      <html lang="en">
+      <html lang="en" suppressContentEditableWarning>
         <body>
-            {children}
+              <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
         </body>
       </html>
   );
