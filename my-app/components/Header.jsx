@@ -4,9 +4,10 @@ import Image from 'next/image';
 import { shadow } from '@/app/styles/utils';
 import { Button } from '@/components/ui/button.jsx';
 import DarkModeToggle from '@/components/DarkModeToggle.jsx';
+import LogOutButton from '@/components/LogOutButton.jsx';
 
 function Header() {
-  const user = null;
+  const user = 1;
   return (
     <header className='relative flex h-24 w-full items-center justify-between bg-popover px-3 sm:px-8' 
     style={{ boxShadow: shadow }}>
@@ -24,7 +25,7 @@ function Header() {
         <div className='flex gap-4'>
 
           {user ? (
-            "Logout"
+            <LogOutButton />
           ) :
           (
             <>
