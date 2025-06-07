@@ -3,6 +3,7 @@ import React from 'react'
 import Image from 'next/image';
 import { shadow } from '@/app/styles/utils';
 import { Button } from '@/components/ui/button.jsx';
+import DarkModeToggle from '@/components/DarkModeToggle.jsx';
 
 function Header() {
   const user = null;
@@ -27,12 +28,20 @@ function Header() {
           ) :
           (
             <>
+
               <Button asChild>
+                  <Link href='/sign-up'>Sign Up</Link>
+              </Button>
+
+              <Button asChild variant = 'outline' className="hidden sm:block">
                   <Link href='/login'>Login</Link>
               </Button>
+
             </>
           )
         }
+
+        <DarkModeToggle />
 
         </div>
 
