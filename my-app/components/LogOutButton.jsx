@@ -10,7 +10,7 @@ function LogOutButton() {
 
     const router = useRouter();
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const handleLogOut = async () => {
         setLoading(true);
@@ -18,6 +18,7 @@ function LogOutButton() {
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         const errorMessage = null;
+        // "Invalid credentials. Please try again."
 
         // if there is no error
 
