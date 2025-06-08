@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Button } from './ui/button'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 function LogOutButton() {
 
