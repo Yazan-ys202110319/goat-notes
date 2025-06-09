@@ -8,6 +8,7 @@ import { Input } from './ui/input';
 import { useTransition } from 'react';
 import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
+import Link from 'next/link';
 
 
 function AuthForm({ type }) {
@@ -58,6 +59,12 @@ function AuthForm({ type }) {
             <Button className="w-full">
                 {isPending ? <Loader2 className='animte-spin' /> : isLoginForm ? 'Login' : 'Sign Up' }
             </Button>
+            <p className='text-xs'>
+                {isLoginForm ? "Don't have an account yet?" : "Already have an account?"}{" "}
+                <Link href={isLoginForm ? "/sign-up" : "/login"} className={`text-blue-500 underline ${isPending ? "pointer-events-none opacity-50" : ""}`}>
+                {isLoginForm ? "Sign Up" : "Login"}
+                </Link>
+            </p>
         </CardFooter>
 
     </form>
