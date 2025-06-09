@@ -28,13 +28,15 @@ return client;
 
 
 export async function getUser() {
-    const {auth} = await createClient();
+    
+    const client = await createClient();
+    const auth = client.auth;
 
     const userObject = await auth.getUser();
 
     if (userObject.error) {
         console.error(userObject.error);
-        return null; // there is no user
+        return null; // if there is no user
     }
 
     return userObject.data.getUser();

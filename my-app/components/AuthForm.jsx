@@ -20,8 +20,44 @@ function AuthForm({ type }) {
     const [isPending, startTransition] = useTransition()
 
     const handleSubmit = (formData) => {
-        console.log('form submitted')
-    }
+        startTransition(async () => {
+            const email = formData.get("email")?.toString();
+            const password = formData.get("password")?.toString();
+
+
+            let errorMessage;
+            let title;
+            let description;
+            
+            // login form
+            if (isLoginForm) {
+                errorMessage = (await loginAction(email, password)).errorMessage;
+                title = "Logged in";
+                description = "You have been successfully logged in";
+            }
+
+            // sign up form
+            else {
+                errorMessage = (await signUpAction(email, password)).errorMessage;
+                title = "Signed Up";
+                description = "Check your email for confirmation link";
+            }
+
+            if (!errorMessage) {
+                toast.success(title, {
+                    description,
+                });
+                router.replace("/");
+            }
+
+            else {
+                toast.error("Error", {
+                    description: errorMessage,
+                });
+            }
+
+        });
+    };
 
   return (
     <form action={handleSubmit}>
