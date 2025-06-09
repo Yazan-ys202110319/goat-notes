@@ -2,10 +2,12 @@
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { toast } from 'sonner';
-import { CardContent } from './ui/card';
+import { CardContent, CardFooter } from './ui/card';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { useTransition } from 'react';
+import { Button } from './ui/button';
+import { Loader2 } from 'lucide-react';
 
 
 function AuthForm({ type }) {
@@ -51,6 +53,12 @@ function AuthForm({ type }) {
             </div>
 
         </CardContent>
+
+        <CardFooter className="mt-4 flex flex-col gap-6">
+            <Button className="w-full">
+                {isPending ? <Loader2 className='animte-spin' /> : isLoginForm ? 'Login' : 'Sign Up' }
+            </Button>
+        </CardFooter>
 
     </form>
   )
