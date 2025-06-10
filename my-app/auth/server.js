@@ -22,23 +22,24 @@ export async function createClient() {
       },
     }
   );
+  return client;
 }
 
-return client;
-
-
 export async function getUser() {
-    
-    const client = await createClient();
-    const auth = client.auth;
+    try {
+        const client = await createClient();
+        const auth = client.auth;
 
-    const userObject = await auth.getUser();
+        const { data, error } = await auth.getUser();
 
-    if (userObject.error) {
-        console.error(userObject.error);
-        return null; // if there is no user
+        if (error) {
+            console.error(error);
+            return null; // if there is an error
+        }
+
+        return data.user;
+    } catch (error) {
+        console.error("Auth error:", error.message);
+        return null; // Return null for any exceptions, including AuthSessionMissingError
     }
-
-    return userObject.data.getUser();
-
 }

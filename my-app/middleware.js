@@ -1,4 +1,5 @@
 import { createServerClient } from '@supabase/ssr';
+import { NextResponse } from 'next/server';
 
 export async function middleware(request) {
   return await updateSession(request);
@@ -11,10 +12,10 @@ export const config = {
 };
 
 
-export async function updateSession(request) {
-  let supabaseResponse = NextResponse.next({ request });
+// export async function updateSession(request) {
+//   let supabaseResponse = NextResponse.next({ request });
 
-  console.log('mid is running');
+//   console.log('mid is running');
 
 //   const supabase = createServerClient(
 //     process.env.SUPABASE_URL,
@@ -31,7 +32,7 @@ export async function updateSession(request) {
 
 //           supabaseResponse = NextResponse.next({ request });
 
-//           cookiesToSet.forEach(({ name, value }) => {
+//           cookiesToSet.forEach(({ name, value, options }) => {
 //             supabaseResponse.cookies.set(name, value, options);
 //           });
 //         },
@@ -43,5 +44,44 @@ export async function updateSession(request) {
 //     data: { user },
 //   } = await supabase.auth.getUser();
 
-  return supabaseResponse;
+//   return supabaseResponse;
+// }
+
+
+// ...existing code...
+export async function createClient() {
+  const cookieStore = cookies();
+
+  const client = createServerClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_ANON_KEY,
+    {
+      cookies: {
+        get(name) {
+          return cookieStore.get(name)?.value;
+        },
+        set(name, value, options) {
+          try {
+            cookieStore.set({ name, value, ...options });
+          } catch (error) {
+            // The `set` method was called from a Server Component.
+            // This can be ignored if you have middleware refreshing
+            // user sessions.
+          }
+        },
+        remove(name, options) {
+          try {
+            cookieStore.set({ name, value: '', ...options });
+          } catch (error) {
+            // The `delete` method was called from a Server Component.
+            // This can be ignored if you have middleware refreshing
+            // user sessions.
+          }
+        },
+      },
+    }
+  );
+  return client;
 }
+
+// ...existing code...

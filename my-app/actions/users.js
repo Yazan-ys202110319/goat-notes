@@ -1,5 +1,6 @@
 "use server";
 import { handleError } from "@/lib/utils";
+import { createClient } from "@/auth/server";
 
 export const loginAction = async (email, password) => {
     try {
